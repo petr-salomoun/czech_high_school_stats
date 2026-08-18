@@ -1,0 +1,8 @@
+{
+  "cohort_lag_years": 8,
+  "min_cohort_size": 10,
+  "min_school_count": 10,
+  "ridge_alpha": 1.0,
+  "bootstrap_iterations": 300,
+  "random_seed": 42
+}

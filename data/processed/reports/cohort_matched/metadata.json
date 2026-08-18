@@ -1,0 +1,114 @@
+{
+  "analysis_type": "school_level_association_not_causal",
+  "cohort_matching_scope": "restricted_to_GY4_GY6_GY8_and_defensible_4year_SOS_only",
+  "cohort_matching_limitation": "Cohort and expected-vs-observed models use GY4/GY6/GY8 and defensible SOS 4-year (entrant grade 9) rows only; SOS matching is school × SMO16-category and not KKOV/programme-level.",
+  "cohorts_expected": [],
+  "units": {
+    "jpz_mean_percentile": "percentile",
+    "mz_mean_score_pct": "percentage_points"
+  },
+  "join_rule": "school_key + school_type(SMO16 taxonomy category) + component + graduation_year=entry_year+programme_duration_years",
+  "aj_note": "AJ is descriptive only in maturita outputs; no JPZ baseline exists for AJ.",
+  "scenario_intake_selectivity": {
+    "metric": "synthetic_admitted_intake_selectivity_percentile",
+    "label": "scenario intake selectivity percentile (Cproxy/CJ+M)",
+    "family": "scenario_proxy_bounds_not_identified_preference_network",
+    "non_identifiability_notice": "School-to-school two-choice preference/assignment cannot be reconstructed from school aggregates. Scenario assumptions adjust effective offers/yield and do not recover preference networks, accepted counts, acceptance rates, or causal effects.",
+    "capacity_proxy_notice": "Historic seats are unavailable. Capacity proxy equals observed MZ cohort throughput (max candidates across CJ/M/AJ for same school_type and graduation_year). If proxy missing, synthetic metric is null.",
+    "constants": {
+      "offer_fraction_bounds": {
+        "min": 0.02,
+        "max": 1.0
+      },
+      "scenarios": {
+        "low": {
+          "yield": 0.9,
+          "within_school_dispersion": 0.6
+        },
+        "central": {
+          "yield": 0.65,
+          "within_school_dispersion": 0.75
+        },
+        "high": {
+          "yield": 0.4,
+          "within_school_dispersion": 0.9
+        }
+      },
+      "uplift_formula": "uplift = within_school_dispersion * phi(Phi^-1(1-p)) / p",
+      "p_formula": "p = clip(capacity_proxy / (jpz_test_takers_cj_m_mean * yield), 0.02, 1.0)",
+      "input_mapping": "Cproxy/JPZ mean percentile clipped to [0.02,0.98], mapped with inverse normal CDF, equal-weight z-average"
+    },
+    "output_scope": "within entry_year × school_type percentile rank only; not an absolute scale across school types",
+    "aj_outcome_note": "AJ is outcome-only descriptive MZ score paired with the same CJ+M synthetic input when AJ rows exist.",
+    "output_file": "scenario_intake_vs_mz_outcomes.csv",
+    "invalid_row_counts": {
+      "<NA>": 10423,
+      "invalid_outcome_candidates": 4256,
+      "invalid_selectivity": 286,
+      "invalid_outcome_score": 13
+    }
+  },
+  "invalid_metrics_not_used": [
+    "CELKEM-derived JPZ entry metric"
+  ],
+  "sos_match_types": [
+    "SOS_AGRICULTURAL",
+    "SOS_ARTS",
+    "SOS_ECONOMIC",
+    "SOS_HEALTHCARE",
+    "SOS_HOTEL_BUSINESS",
+    "SOS_PEDAGOGICAL_HUMANITIES",
+    "SOS_TECHNICAL"
+  ],
+  "sos_match_rule": {
+    "required_programme_duration_years": 4,
+    "required_entrant_grade": 9,
+    "required_jpz_historic_grade": 9,
+    "required_jpz_source_family": "historic_vysledky",
+    "matching_granularity": "school × SMO16-category",
+    "not_programme_level": true
+  },
+  "matching_diagnostics": {
+    "jpz_rows": 21378,
+    "mz_rows": 52611,
+    "joined_rows": 14978,
+    "jpz_schools": 1036,
+    "mz_schools": 1095,
+    "joined_schools": 982,
+    "jpz_components": {
+      "CJ": 10689,
+      "M": 10689
+    },
+    "mz_components": {
+      "AJ": 17537,
+      "CJ": 17537,
+      "M": 17537
+    },
+    "joined_components": {
+      "CJ": 7489,
+      "M": 7489
+    },
+    "jpz_years_present": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "mz_years_present": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  }
+}

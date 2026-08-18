@@ -1,0 +1,37 @@
+{
+  "notes": "Static direct CERMAT source URLs for the optional `download` command. The autonomous `run` command discovers years and URLs dynamically from CERMAT landing pages.",
+  "sources": [
+    {
+      "id": "jpz_2026_prihlasky",
+      "type": "admissions",
+      "description": "Official CERMAT JPZ aggregated school data: applications",
+      "url": "https://data.cermat.cz/files/files/JPZ/agregovana_data_skoly/PZ2026_kolo1_skolobory_prihlasky.xlsx",
+      "required": true,
+      "sha256": ""
+    },
+    {
+      "id": "jpz_2026_kapacity",
+      "type": "admissions",
+      "description": "Official CERMAT JPZ aggregated school data: capacities",
+      "url": "https://data.cermat.cz/files/files/JPZ/agregovana_data_skoly/PZ2026_kolo1_skolobory_kapacity.xlsx",
+      "required": true,
+      "sha256": ""
+    },
+    {
+      "id": "jpz_2026_vysledky",
+      "type": "admissions_results",
+      "description": "Official CERMAT JPZ aggregated school data: results",
+      "url": "https://data.cermat.cz/files/files/JPZ/agregovana_data_skoly/PZ2026_kolo1_skolobory_vysledky.xlsx",
+      "required": false,
+      "sha256": ""
+    },
+    {
+      "id": "maturita_2026_aggregate",
+      "type": "maturita",
+      "description": "Official CERMAT Maturita aggregated school data",
+      "url": "https://data.cermat.cz/files/files/MZ/agregovana_data_skoly/MZ2026j_SC_skolobory.xlsx",
+      "required": false,
+      "sha256": ""
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "language": "en",
+  "metric_units": {
+    "JPZ": "percentile",
+    "MZ": "percentage score / pass-rate proportion"
+  },
+  "archive_availability": {
+    "explicit_unavailable": [
+      {
+        "source_id": "jpz_2016_historic_vysledky",
+        "dataset": "jpz",
+        "year": 2016,
+        "kind": "historic_vysledky",
+        "url": null,
+        "required": false,
+        "parser_profile": "jpz_historic_2017_2023",
+        "timestamp": "2026-08-07T14:43:01Z",
+        "status": "unavailable",
+        "reason": "Official JPZ aggregated school-level workbook is publicly available from 2017 onward; 2016 unavailable."
+      },
+      {
+        "source_id": "mz_2026_jap",
+        "dataset": "mz",
+        "year": 2026,
+        "kind": "jap",
+        "url": "https://data.cermat.cz/files/files/MZ/agregovana_data_skoly/MZ2026jap_SC_skolobory.xlsx",
+        "required": false,
+        "parser_profile": "mz_wide_components_2015_2026",
+        "timestamp": "2026-08-07T14:43:40Z",
+        "status": "unavailable",
+        "reason": "Download failed for https://data.cermat.cz/files/files/MZ/agregovana_data_skoly/MZ2026jap_SC_skolobory.xlsx after 3 attempts: HTTP Error 404: Not Found"
+      }
+    ]
+  },
+  "notes": [
+    "All analytics are computed strictly from local archived files.",
+    "Cohort-matched and cross-year descriptive outputs are separated by design.",
+    "No invalid synthetic CELKEM JPZ metric is created.",
+    "School type classification uses only official source programme/grade coding fields (programme_group_raw, grade) and preserves unknown classifications; CELKEM/TOTAL_AGGREGATE rows are excluded from program-level outputs.",
+    "Cohort matching and expected-vs-observed modeling use GY4/GY6/GY8 plus defensible SOS types with duration=4 and entrant grade=9; for SOS, matching granularity is school × SMO16-category and not KKOV/programme-level.",
+    "Historic JPZ mean_percentile is a published test-result aggregate; it is not admissions acceptance.",
+    "Historic PŘIHLÁŠENI/KONALI are programme-row registrations/test-takers, not unique applicants or enrolment.",
+    "Historic accepted/admitted counts are unavailable in these sources and remain null.",
+    "Modern 2024+ JPZ triplet metrics are a separate metric family and are not compared numerically to historic JPZ mean percentiles.",
+    "Synthetic intake selectivity is scenario-based and non-identifying: it does not reconstruct school-to-school preferences, accepted counts, acceptance rates, or causal effects.",
+    "Scenario intake selectivity uses CJ+M z-space input and an MZ-throughput capacity proxy (max candidates across CJ/M/AJ in matched graduation-year school_type); when proxy/test-taker inputs are unavailable the synthetic metric is null.",
+    "AJ appears only as descriptive MZ outcome rows joined to the same CJ+M synthetic input entity; no AJ JPZ baseline is inferred."
+  ],
+  "diagnostics_file": "data/archive/20260807T144301Z/reports/parser_diagnostics.json"
+}

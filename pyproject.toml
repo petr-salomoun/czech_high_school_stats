@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gymnazium-value-added"
+version = "0.1.0"
+description = "CLI for school-level adjusted association analysis of 8-year gymnasiums (JPZ vs maturita)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pandas>=2.2",
+  "numpy>=1.26",
+  "openpyxl>=3.1",
+  "scipy>=1.12"
+]
+
+[project.scripts]
+gymva = "gymnazium_value_added.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gymnazium_value_added*"]

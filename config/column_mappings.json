@@ -1,0 +1,22 @@
+{
+  "notes": "Mapping format: {normalized_target_column: source_column}. Auto-detection handles common CERMAT variants, and these explicit mappings override auto-detection.",
+  "admissions_mapping": {
+    "school_id": "RED_IZO",
+    "school_name": "NAZEV_SKOLY",
+    "year": "ROK_PRIJIMACEK",
+    "program_code": "KKOV",
+    "program_name": "OBOR_NAZEV",
+    "applications": "POCET_PRIHLASEK",
+    "capacity": "KAPACITA",
+    "avg_admission_score": "PRUMER_JPZ_BODU"
+  },
+  "maturita_mapping": {
+    "school_id": "RED_IZO",
+    "school_name": "NAZEV_SKOLY",
+    "year": "ROK_MATURITY",
+    "candidates": "POCET_ZAKU",
+    "subject": "PREDMET",
+    "mean_score": "PRUMERNY_BOD",
+    "pass_rate": "USPESNOST"
+  }
+}

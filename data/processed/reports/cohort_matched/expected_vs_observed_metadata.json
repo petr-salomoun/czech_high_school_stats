@@ -1,0 +1,58 @@
+{
+  "analysis_type": "descriptive_school_level_association",
+  "formula": "MZ score (%) ~ JPZ published mean percentile + entry-year cohort fixed effect",
+  "weights": "mz_candidates",
+  "units": {
+    "jpz_mean_percentile": "percentile",
+    "mz_mean_score_pct": "percentage_points",
+    "residual_pp": "percentage_points"
+  },
+  "minimum_candidates_threshold": 10,
+  "warnings": [
+    "Descriptive school-level association only; no individual linkage or causal inference.",
+    "Historic admissions/accepted and unique applicant adjustment are unavailable in source files.",
+    "Registrations are programme-row applications and may include multiple applications per student.",
+    "M component can have low JPZ spread in some cohorts; residual ranking can be unstable.",
+    "Scope limitation: expected-vs-observed modeling uses GY4/GY6/GY8 and defensible 4-year SOS rows (entrant grade 9 only); SOS matching is school × SMO16-category (not KKOV/programme-level)."
+  ],
+  "components": {
+    "CJ": {
+      "rows": 7319,
+      "cohorts": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "weighted_r2": 0.5812547345637369,
+      "weighted_r": 0.7371183884909792,
+      "beta_jpz_pp_per_percentile": 0.43688910365283684,
+      "mz_school_mean_percentile_slope_per_jpz_percentile": 1.3246305645291205,
+      "intercept_pp": 48.363286362599325,
+      "jpz_sd": 15.130290545568927,
+      "mz_sd": 9.25742925759861,
+      "low_spread_warning": false
+    },
+    "M": {
+      "rows": 3085,
+      "cohorts": [
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "weighted_r2": 0.32531767836069525,
+      "weighted_r": 0.3629043506053027,
+      "beta_jpz_pp_per_percentile": 0.3472719111340834,
+      "mz_school_mean_percentile_slope_per_jpz_percentile": 0.6257546771851211,
+      "intercept_pp": 35.064585207173344,
+      "jpz_sd": 14.065350895165304,
+      "mz_sd": 14.261125811366872,
+      "low_spread_warning": false
+    }
+  }
+}
