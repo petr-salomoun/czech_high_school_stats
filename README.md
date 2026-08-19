@@ -6,6 +6,8 @@ Parents and students often wonder: *Which schools add the most value? Do top-sco
 
 This repository provides an open, auditable, and reproducible data pipeline analyzing official school-level aggregate data published by **CERMAT** (the Czech national assessment agency) and the **Ministry of Education, Youth and Sports (MŠMT)**. It tracks cohorts across time, models expected versus observed graduation outcomes, computes scenario intake selectivity proxies, and generates a self-contained interactive dashboard.
 
+📝 **Read the full write-up on the blog:** [Czech High School Admissions vs. Graduation Outcomes](https://petr-salomoun.github.io/posts/2026/08/19/czech-high-school-stats/)
+
 ---
 
 ## The Czech High School System in Brief
