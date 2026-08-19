@@ -70,9 +70,9 @@ To see how entrance selectivity and graduation outcomes connect, consider four p
 
 Explore the full dataset interactively:
 
-👉 **[Download the full interactive HTML report](report/archive_dashboard.html)**
+👉 **[Open the live interactive dashboard](https://petr-salomoun.github.io/czech_high_school_stats/)**
 
-*Tip for GitHub users*: GitHub displays HTML files as raw source code when clicked. To experience the interactive charts, filters, and school search, click **"Download raw file"** (or clone the repository) and open `report/archive_dashboard.html` in your web browser. The file is completely self-contained and requires no server or external dependencies.
+*Tip for offline or local use*: The dashboard is also available as a self-contained static file in the repository at [`report/archive_dashboard.html`](report/archive_dashboard.html) (and [`docs/index.html`](docs/index.html)). Because GitHub's web UI blob viewer does not render large HTML files directly, we recommend viewing via the live GitHub Pages link above, or cloning/downloading `report/archive_dashboard.html` to open directly in any web browser (zero external CDN or server dependencies required).
 
 ---
 

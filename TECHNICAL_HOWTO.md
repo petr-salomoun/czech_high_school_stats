@@ -137,7 +137,7 @@ The test suite covers:
    - Weights: $\text{MZ candidates}$
    - Residuals: $\text{Observed MZ score} - \text{Expected MZ score}$ (in percentage points)
 4. **Self-Contained Dashboard**:
-   `report/archive_dashboard.html` bundles all required HTML, CSS, JavaScript, and embedded JSON data. It requires no web server and makes zero external CDN or API calls.
+   `report/archive_dashboard.html` (hosted live on [GitHub Pages](https://petr-salomoun.github.io/czech_high_school_stats/)) bundles all required HTML, CSS, JavaScript, and embedded JSON data. It requires no web server and makes zero external CDN or API calls.
 
 ---
 
@@ -156,6 +156,8 @@ When exploring the data and models in this project, keep the following guardrail
 
 ```
 czech_high_school_stats/
+├── docs/
+│   └── index.html                   # Live GitHub Pages interactive dashboard
 ├── report/
 │   ├── archive_dashboard.html       # Standalone interactive HTML dashboard (zero-dependency)
 │   └── images/                      # Generated cohort visualization charts (PNG)
