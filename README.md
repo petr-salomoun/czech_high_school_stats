@@ -43,6 +43,8 @@ To see how entrance selectivity and graduation outcomes connect, consider four p
 | **Gymnázium, tř. Kpt. Jaroše** | `600013481` | 61.6 | 98.05 | 89.07% | 99.19 | 100% / 70.0% |
 | **Gymnázium Matyáše Lercha** | `600013626` | 61.7 | 99.61 | 91.54% | 99.87 | 100% / 53.8% |
 
+![Brno GY8 Entrance vs Graduation Outcomes](report/images/brno_gy8_jpz_vs_mz.png)
+
 ### Understanding the Numbers & The Self-Selection Bias
 
 1. **Entrance Test-Taker Pool vs. Admitted Pool**:
@@ -58,76 +60,29 @@ To see how entrance selectivity and graduation outcomes connect, consider four p
    - Comparing raw math averages directly without noting participation rates would distort reality: getting an 85% average when 14% of your top math students sit the exam is fundamentally different from achieving an 89% average when 70% of the entire student body takes it.
    - That is why our dashboard and reports explicitly include the **MZ participation rate (relative to CJ)** column.
 
----
+![Brno GY8 Math Maturita Participation Rates](report/images/brno_gy8_math_participation.png)
 
-## Important Methodological Caveats
-
-When exploring the data and models in this project, keep the following guardrails in mind:
-
-- **Descriptive Associations, Not Causal Claims**: School-level regressions reflect aggregate descriptive associations. They cannot prove causal "school value-added" or isolate teacher effectiveness from student socio-economic background, tutoring, peer effects, or unobserved student motivation.
-- **Aggregate Public Data Only**: All calculations rely strictly on published school/programme-level tables. No individual student records exist in the public domain.
-- **Test-Takers vs. Unique Applicants**: Historic JPZ candidate numbers represent exam seatings (which could be up to two per applicant) rather than unique persons. Historical accepted/rejected lists and student preference orderings are not published in CERMAT historical archives.
-- **Scenario Selectivity is a Model Proxy**: The synthetic intake selectivity metric is an algorithmic estimate based on capacity throughput and score distributions under explicit scenario assumptions, not observed administrative cutoffs.
+*(Note: For full statistical methodology, modeling details, and limitations, please see the caveats section in [TECHNICAL_HOWTO.md](TECHNICAL_HOWTO.md).)*
 
 ---
 
-## What's in This Repository
+## Interactive HTML Dashboard
 
-```
-czech_high_school_stats/
-├── report/
-│   └── archive_dashboard.html       # Main Deliverable: standalone interactive HTML dashboard
-├── data/
-│   ├── raw/                         # 37 original canonical CERMAT Excel workbooks (2016–2026)
-│   ├── processed/                   # Standardized CSVs & JSON regression metadata
-│   │   ├── normalized/              # Cleaned component-level JPZ and MZ tables
-│   │   └── reports/                 # Cohort panels, expected-vs-observed residuals, trends
-│   ├── manifest.json                # SHA256 checksums and provenance URLs for all raw sources
-│   └── source_override.json         # Relative source mapping
-├── gymnazium_value_added/           # Core Python analytical engine & CLI tool
-├── tests/                           # Full unit and integration test suite
-├── config/                          # Taxonomy and column normalization rules
-├── fixtures/                        # Test fixtures
-├── pyproject.toml                   # Packaging and dependency declarations
-├── TECHNICAL_HOWTO.md               # Step-by-step reproduction and CLI guide
-└── LICENSE                          # MIT License
-```
+Explore the full dataset interactively:
 
-### Main Deliverable: Interactive HTML Dashboard
+👉 **[Download the full interactive HTML report](report/archive_dashboard.html)**
 
-The primary visual deliverable is located at [`report/archive_dashboard.html`](report/archive_dashboard.html).
-
-It is a zero-dependency, self-contained interactive dashboard containing:
-- **Global School Search & Filter**: Filter by school name, city, address, REDIZO, or school type.
-- **Cohort Scatter Matrix**: Interactive plots comparing entrance percentiles to graduation school-mean percentile ranks (0–100 scale).
-- **Observed vs. Model-Expected Outcomes**: School-level residual regressions (`MZ score ~ JPZ published mean percentile + cohort fixed effect`) weighted by candidate volume.
-- **Scenario Intake Selectivity**: Interactive exploration of selectivity proxies across CJ, M, and AJ outcomes.
-- **Cross-Year Historic Trends**: Time series tracking school performance across all available examination years.
+*Tip for GitHub users*: GitHub displays HTML files as raw source code when clicked. To experience the interactive charts, filters, and school search, click **"Download raw file"** (or clone the repository) and open `report/archive_dashboard.html` in your web browser. The file is completely self-contained and requires no server or external dependencies.
 
 ---
 
-## How to Explore & Reproduce
+## Technical Documentation & Reproduction
 
-To run the data pipeline locally, regenerate the dashboard, or run the test suite, please see the step-by-step instructions in **[TECHNICAL_HOWTO.md](TECHNICAL_HOWTO.md)**.
-
-Quick start:
-```bash
-# Clone the repository
-git clone git@github.com:petr-salomoun/czech_high_school_stats.git
-cd czech_high_school_stats
-
-# Install in a virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e .
-
-# Run the test suite
-python -m unittest discover -s tests -p "test_*_unittest.py"
-```
+For step-by-step instructions on running the pipeline locally, CLI usage, full methodological caveats, regression specifications, and repository architecture, see **[TECHNICAL_HOWTO.md](TECHNICAL_HOWTO.md)**.
 
 ---
 
-## Data Attribution & License
+## License & Attribution
 
-- **Data Sources**: Official open datasets published by **CERMAT** (Centrum pro zjišťování výsledků vzdělávání) and **MŠMT** (Ministerstvo školství, mládeže a tělovýchovy ČR).
-- **Code & Pipeline License**: This project is licensed under the [MIT License](LICENSE) © 2026 Petr Salomoun.
+- **Code & Original Analysis**: Licensed under the [MIT License with Attribution Requirement](LICENSE) © 2026 Petr Salomoun. Any public use, publication, redistribution, or derivative work based on this software or its outputs must include clear attribution to the original author, Petr Salomoun, and a link to this repository.
+- **Underlying Exam Data**: Official open datasets published by **CERMAT** and **MŠMT**, subject to Czech public sector open data terms. See [DATA_LICENSE.md](DATA_LICENSE.md) for data provenance and reuse terms.

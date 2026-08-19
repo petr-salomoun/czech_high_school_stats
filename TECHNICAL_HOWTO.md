@@ -1,6 +1,6 @@
 # Technical How-To Guide: Czech High School Stats Pipeline
 
-This document explains the technical architecture, reproduction steps, CLI commands, and test workflows for the `czech_high_school_stats` (GymVA) analytical pipeline.
+This document explains the technical architecture, reproduction steps, CLI commands, methodological caveats, directory layout, and test workflows for the `czech_high_school_stats` (GymVA) analytical pipeline.
 
 ---
 
@@ -30,6 +30,7 @@ Core dependencies:
 - `numpy>=1.26`
 - `openpyxl>=3.1`
 - `scipy>=1.12`
+- `matplotlib>=3.8`
 
 ---
 
@@ -85,7 +86,29 @@ The CLI script `gymva` (or `python -m gymnazium_value_added run`) provides a sin
 
 ---
 
-## 3. Running the Test Suite
+## 3. How to Explore & Reproduce
+
+To reproduce the analysis, regenerate data tables, or execute the end-to-end pipeline locally:
+
+```bash
+# Clone the repository
+git clone git@github.com:petr-salomoun/czech_high_school_stats.git
+cd czech_high_school_stats
+
+# Set up virtual environment and install
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+
+# Run local analysis and regenerate reports
+python -m gymnazium_value_added analyze-local
+```
+
+All output CSV panels and JSON summaries will be written to `data/processed/reports/`, and the interactive HTML report will be updated in `report/archive_dashboard.html`.
+
+---
+
+## 4. Running the Test Suite
 
 All unit and integration tests use standard Python `unittest`:
 
@@ -102,7 +125,7 @@ The test suite covers:
 
 ---
 
-## 4. Key Methodology & Parsing Semantics
+## 5. Key Methodology & Parsing Semantics
 
 1. **Programme Taxonomy**:
    Authoritative code-based classification (`GY4`, `GY6`, `GY8`, `LYC`, `SOS_*`, `SOU_*`, `NASTAVBA_*`).
@@ -118,22 +141,34 @@ The test suite covers:
 
 ---
 
-## 5. Directory Structure Overview
+## 6. Important Methodological Caveats
+
+When exploring the data and models in this project, keep the following guardrails in mind:
+
+- **Descriptive Associations, Not Causal Claims**: School-level regressions reflect aggregate descriptive associations. They cannot prove causal "school value-added" or isolate teacher effectiveness from student socio-economic background, tutoring, peer effects, or unobserved student motivation.
+- **Aggregate Public Data Only**: All calculations rely strictly on published school/programme-level tables. No individual student records exist in the public domain.
+- **Test-Takers vs. Unique Applicants**: Historic JPZ candidate numbers represent exam seatings (which could be up to two per applicant) rather than unique persons. Historical accepted/rejected lists and student preference orderings are not published in CERMAT historical archives.
+- **Scenario Selectivity is a Model Proxy**: The synthetic intake selectivity metric is an algorithmic estimate based on capacity throughput and score distributions under explicit scenario assumptions, not observed administrative cutoffs.
+
+---
+
+## 7. What's in This Repository (Directory Structure)
 
 ```
-├── config/                          # Taxonomy rules, column mappings, sources config
+czech_high_school_stats/
+├── report/
+│   ├── archive_dashboard.html       # Standalone interactive HTML dashboard (zero-dependency)
+│   └── images/                      # Generated cohort visualization charts (PNG)
+│       ├── brno_gy8_jpz_vs_mz.png
+│       └── brno_gy8_math_participation.png
 ├── data/
-│   ├── manifest.json                # SHA256 checksums and provenance URLs
-│   ├── source_override.json         # Relative source mapping
 │   ├── raw/                         # 37 canonical CERMAT Excel workbooks (2016–2026)
-│   └── processed/
-│       ├── normalized/              # Cleaned component-level JPZ/MZ CSVs
-│       └── reports/
-│           ├── cohort_matched/      # Cohort panel, residuals, scenario intake CSVs
-│           ├── cross_year_descriptive/ # Multi-year school trends CSVs
-│           └── methodology.json     # Regression model coefficients and metadata
-├── fixtures/                        # Mock data fixtures for test suite
-├── gymnazium_value_added/           # Core package source code
+│   ├── processed/                   # Standardized CSVs & JSON regression metadata
+│   │   ├── normalized/              # Cleaned component-level JPZ and MZ tables
+│   │   └── reports/                 # Cohort panels, expected-vs-observed residuals, trends
+│   ├── manifest.json                # SHA256 checksums and provenance URLs for all raw sources
+│   └── source_override.json         # Relative source mapping
+├── gymnazium_value_added/           # Core Python analytical engine & CLI tool
 │   ├── analyze.py                   # Regression fitting & value-added models
 │   ├── archive_pipeline.py          # Two-phase archive freezing & parser
 │   ├── archive_report.py            # Static standalone HTML dashboard generator
@@ -144,10 +179,18 @@ The test suite covers:
 │   ├── io.py                        # Safe downloader with retry & validation
 │   ├── model.py                     # Data dataclasses
 │   └── report.py                    # Legacy tabular reporting
-├── report/
-│   └── archive_dashboard.html       # Standalone interactive HTML report
-├── tests/                           # Unit test suite
-├── pyproject.toml                   # Python packaging metadata
-├── LICENSE                          # MIT License
-└── README.md                        # Project introduction and overview
+├── tests/                           # Full unit and integration test suite
+├── config/                          # Taxonomy and column normalization rules
+├── fixtures/                        # Test fixtures
+├── pyproject.toml                   # Packaging and dependency declarations
+├── TECHNICAL_HOWTO.md               # Step-by-step reproduction and CLI guide
+├── DATA_LICENSE.md                  # Data provenance & public sector licensing terms
+└── LICENSE                          # MIT License with Attribution Requirement
 ```
+
+---
+
+## 8. Data Attribution & Licensing
+
+- **Code & Analysis**: Licensed under the [MIT License with Attribution Requirement](LICENSE) © 2026 Petr Salomoun.
+- **Source Data**: Official public open data published by CERMAT and MŠMT. See [DATA_LICENSE.md](DATA_LICENSE.md).
